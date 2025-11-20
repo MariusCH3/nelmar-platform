@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model IntakeLead {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String
+  fullName     String?
+  phone        String?
+  companyName  String?
+  websiteUrl   String?
+
+  projectTypes String   @db.Text
+  goals        String?  @db.Text
+  budgetRange  String?
+  needsIT      Boolean  @default(false)
+
+  rawAnswers   Json?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  clientId     String?  @db.Uuid
+  projectId    String?  @db.Uuid
+}
+
